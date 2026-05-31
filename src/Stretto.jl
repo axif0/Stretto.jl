@@ -4,6 +4,7 @@ using LinearAlgebra
 using Printf
 using TOML
 using TestItems
+using FFTW: rfft, rfftfreq
 
 using Piccolo
 using Piccolo:
@@ -162,10 +163,19 @@ export default_initial_pulse, set_default_initial_pulse!
 export BlockSpec, default_partitioner, set_default_partitioner!
 export default_solver_strategy, set_default_solver_strategy!
 export classify_problem, set_classify_problem!
-export PostProcessContext, default_post_process, set_default_post_process!
+export PostProcessContext, default_post_process, set_default_post_process!, pulse_spectrum, plot_pulse_spectrum
 export build_problem, set_build_problem!
 export CompilationStrategy
 export register_strategy!, unregister_strategy!, strategies, select_strategy
+
+"""
+    plot_pulse_spectrum(pulse; n_samples=1000, bandwidth_GHz=nothing, kwargs...)
+
+Plot the one-sided amplitude spectrum for each drive channel of the pulse.
+`bandwidth_GHz`, if provided, draws a vertical reference line at that frequency.
+Requires Makie.jl to be loaded.
+"""
+function plot_pulse_spectrum end
 
 function __init__()
     register_strategy!(DEFAULT_STRATEGY)
